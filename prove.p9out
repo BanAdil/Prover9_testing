@@ -1,7 +1,7 @@
 ============================== Prover9 ===============================
 Prover9 (64) version 2009-11A, November 2009.
-Process 14909 was started by codespace on codespaces-fd6d1b,
-Tue Nov 17 11:19:28 2026
+Process 19477 was started by codespace on codespaces-fd6d1b,
+Tue Nov 17 11:28:36 2026
 The command was "/usr/local/python/3.14.2/lib/python3.14/site-packages/pyprover9/executables/prover9-linux-elf-64 -t 10".
 ============================== end of head ===========================
 
@@ -29,15 +29,15 @@ if(Mace4).
 end_if.
 
 formulas(assumptions).
-SunHoliday.
-SunHoliday -> UniClosed.
-ItsWeekend -> Sat | Sun.
-ItsWeekend.
--Sat.
+-PlayingTennis -> WatchingTennis.
+-WatchingTennis -> ReadingTennis.
+-(PlayingTennis & WatchingTennis).
+-(PlayingTennis & ReadingTennis).
+-(WatchingTennis & ReadingTennis).
 end_of_list.
 
 formulas(goals).
-UniClosed.
+WatchingTennis.
 end_of_list.
 
 ============================== end of input ==========================
@@ -49,9 +49,12 @@ end_of_list.
 ============================== PROCESS NON-CLAUSAL FORMULAS ==========
 
 % Formulas that are not ordinary clauses:
-1 SunHoliday -> UniClosed # label(non_clause).  [assumption].
-2 ItsWeekend -> Sat | Sun # label(non_clause).  [assumption].
-3 UniClosed # label(non_clause) # label(goal).  [goal].
+1 -PlayingTennis -> WatchingTennis # label(non_clause).  [assumption].
+2 -WatchingTennis -> ReadingTennis # label(non_clause).  [assumption].
+3 -(PlayingTennis & WatchingTennis) # label(non_clause).  [assumption].
+4 -(PlayingTennis & ReadingTennis) # label(non_clause).  [assumption].
+5 -(WatchingTennis & ReadingTennis) # label(non_clause).  [assumption].
+6 WatchingTennis # label(non_clause) # label(goal).  [goal].
 
 ============================== end of process non-clausal formulas ===
 
@@ -63,28 +66,28 @@ formulas(usable).
 end_of_list.
 
 formulas(sos).
-SunHoliday.  [assumption].
--SunHoliday | UniClosed.  [clausify(1)].
--ItsWeekend | Sat | Sun.  [clausify(2)].
-ItsWeekend.  [assumption].
--Sat.  [assumption].
--UniClosed.  [deny(3)].
+PlayingTennis | WatchingTennis.  [clausify(1)].
+WatchingTennis | ReadingTennis.  [clausify(2)].
+-PlayingTennis | -WatchingTennis.  [clausify(3)].
+-PlayingTennis | -ReadingTennis.  [clausify(4)].
+-WatchingTennis | -ReadingTennis.  [clausify(5)].
+-WatchingTennis.  [deny(6)].
 end_of_list.
 
 formulas(demodulators).
 end_of_list.
 
 Term ordering decisions:
-Predicate symbol precedence:  predicate_order([ ItsWeekend, SunHoliday, Sat, Sun, UniClosed ]).
+Predicate symbol precedence:  predicate_order([ WatchingTennis, PlayingTennis, ReadingTennis ]).
 Function symbol precedence:  function_order([ ]).
 After inverse_order:  (no changes).
 
-kept:      4 SunHoliday.  [assumption].
-kept:      5 -SunHoliday | UniClosed.  [clausify(1)].
-kept:      6 -ItsWeekend | Sat | Sun.  [clausify(2)].
-kept:      7 ItsWeekend.  [assumption].
-kept:      8 -Sat.  [assumption].
-kept:      9 -UniClosed.  [deny(3)].
+kept:      7 PlayingTennis | WatchingTennis.  [clausify(1)].
+kept:      8 WatchingTennis | ReadingTennis.  [clausify(2)].
+kept:      9 -PlayingTennis | -WatchingTennis.  [clausify(3)].
+kept:      10 -PlayingTennis | -ReadingTennis.  [clausify(4)].
+kept:      11 -WatchingTennis | -ReadingTennis.  [clausify(5)].
+kept:      12 -WatchingTennis.  [deny(6)].
 
 ============================== end of process initial clauses ========
 
@@ -96,12 +99,10 @@ formulas(usable).
 end_of_list.
 
 formulas(sos).
-4 SunHoliday.  [assumption].
-5 -SunHoliday | UniClosed.  [clausify(1)].
-6 -ItsWeekend | Sat | Sun.  [clausify(2)].
-7 ItsWeekend.  [assumption].
-8 -Sat.  [assumption].
-9 -UniClosed.  [deny(3)].
+7 PlayingTennis | WatchingTennis.  [clausify(1)].
+8 WatchingTennis | ReadingTennis.  [clausify(2)].
+10 -PlayingTennis | -ReadingTennis.  [clausify(4)].
+12 -WatchingTennis.  [deny(6)].
 end_of_list.
 
 formulas(demodulators).
@@ -113,39 +114,49 @@ end_of_list.
 
 % Starting search at 0.00 seconds.
 
-given #1 (I,wt=1): 4 SunHoliday.  [assumption].
+given #1 (I,wt=2): 7 PlayingTennis | WatchingTennis.  [clausify(1)].
 
-given #2 (I,wt=2): 5 -SunHoliday | UniClosed.  [clausify(1)].
+given #2 (I,wt=2): 8 WatchingTennis | ReadingTennis.  [clausify(2)].
+
+given #3 (I,wt=2): 10 -PlayingTennis | -ReadingTennis.  [clausify(4)].
+
+given #4 (I,wt=1): 12 -WatchingTennis.  [deny(6)].
+
+given #5 (A,wt=2): 13 -PlayingTennis | WatchingTennis.  [resolve(10,b,8,b)].
 
 ============================== PROOF =================================
 
 % Proof 1 at 0.00 (+ 0.00) seconds.
-% Length of proof is 7.
-% Level of proof is 3.
+% Length of proof is 11.
+% Level of proof is 4.
 % Maximum clause weight is 2.000.
-% Given clauses 2.
+% Given clauses 5.
 
-1 SunHoliday -> UniClosed # label(non_clause).  [assumption].
-3 UniClosed # label(non_clause) # label(goal).  [goal].
-4 SunHoliday.  [assumption].
-5 -SunHoliday | UniClosed.  [clausify(1)].
-9 -UniClosed.  [deny(3)].
-10 UniClosed.  [resolve(5,a,4,a)].
-11 $F.  [resolve(10,a,9,a)].
+1 -PlayingTennis -> WatchingTennis # label(non_clause).  [assumption].
+2 -WatchingTennis -> ReadingTennis # label(non_clause).  [assumption].
+4 -(PlayingTennis & ReadingTennis) # label(non_clause).  [assumption].
+6 WatchingTennis # label(non_clause) # label(goal).  [goal].
+7 PlayingTennis | WatchingTennis.  [clausify(1)].
+8 WatchingTennis | ReadingTennis.  [clausify(2)].
+10 -PlayingTennis | -ReadingTennis.  [clausify(4)].
+12 -WatchingTennis.  [deny(6)].
+13 -PlayingTennis | WatchingTennis.  [resolve(10,b,8,b)].
+14 WatchingTennis.  [resolve(13,a,7,a),merge(b)].
+15 $F.  [resolve(14,a,12,a)].
 
 ============================== end of proof ==========================
 
 ============================== STATISTICS ============================
 
-Given=2. Generated=7. Kept=7. proofs=1.
-Usable=2. Sos=4. Demods=0. Limbo=0, Disabled=6. Hints=0.
+Given=5. Generated=8. Kept=8. proofs=1.
+Usable=5. Sos=0. Demods=0. Limbo=0, Disabled=8. Hints=0.
 Kept_by_rule=0, Deleted_by_rule=0.
-Forward_subsumed=0. Back_subsumed=0.
+Forward_subsumed=0. Back_subsumed=2.
 Sos_limit_deleted=0. Sos_displaced=0. Sos_removed=0.
 New_demodulators=0 (0 lex), Back_demodulated=0. Back_unit_deleted=0.
 Demod_attempts=0. Demod_rewrites=0.
 Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
-Nonunit_fsub_feature_tests=0. Nonunit_bsub_feature_tests=2.
+Nonunit_fsub_feature_tests=0. Nonunit_bsub_feature_tests=8.
 Megabytes=0.03.
 User_CPU=0.00, System_CPU=0.00, Wall_clock=0.
 
@@ -157,4 +168,4 @@ THEOREM PROVED
 
 Exiting with 1 proof.
 
-Process 14909 exit (max_proofs) Tue Nov 17 11:19:28 2026
+Process 19477 exit (max_proofs) Tue Nov 17 11:28:36 2026

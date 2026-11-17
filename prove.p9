@@ -32,15 +32,15 @@ formulas(assumptions).
 
 
 
-    SunHoliday.
+    -PlayingTennis -> WatchingTennis.
 
-    SunHoliday -> UniClosed.
+    -WatchingTennis -> ReadingTennis.
 
-    ItsWeekend -> (Sat | Sun).
+    -(PlayingTennis & WatchingTennis).
 
-    ItsWeekend.
+    -(PlayingTennis & ReadingTennis).
 
-    -Sat.
+    -(WatchingTennis & ReadingTennis).
 
 end_of_list.
 
@@ -48,6 +48,6 @@ formulas(goals).
 
 
 
-    UniClosed.
+    WatchingTennis.
 
 end_of_list.
