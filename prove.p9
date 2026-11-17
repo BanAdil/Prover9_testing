@@ -31,24 +31,19 @@ formulas(assumptions).
 %%__PREAMBLE__
 
 
-% A1	The diamond has been stolen!
-DiamondStolen.
 
-% A2	If the diamond has been stolen, a thief got into the house.
-DiamondStolen -> ThiefInHouse.
+    PictVal | PictFake.
 
-% A3	If a thief got in, either the door was open or the window was smashed.
-(ThiefInHouse -> (DoorOpen | WindowSmashed)).
+    PictVal -> PictByRembrand.
 
-% A4	The window is not smashed.
--WindowSmashed.
+    PictFake -> PoliceInvestigation.
 
 end_of_list.
 
 formulas(goals).
 
 
-% Goal	The door was open.
-DoorOpen.
+
+    PictByRembrand | PoliceInvestigation.
 
 end_of_list.

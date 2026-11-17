@@ -1,7 +1,7 @@
 ============================== Prover9 ===============================
 Prover9 (64) version 2009-11A, November 2009.
-Process 5649 was started by codespace on codespaces-fd6d1b,
-Tue Nov 17 11:00:49 2026
+Process 10239 was started by codespace on codespaces-fd6d1b,
+Tue Nov 17 11:09:43 2026
 The command was "/usr/local/python/3.14.2/lib/python3.14/site-packages/pyprover9/executables/prover9-linux-elf-64 -t 10".
 ============================== end of head ===========================
 
@@ -29,14 +29,13 @@ if(Mace4).
 end_if.
 
 formulas(assumptions).
-DiamondStolen.
-DiamondStolen -> ThiefInHouse.
-ThiefInHouse -> DoorOpen | WindowSmashed.
--WindowSmashed.
+PictVal | PictFake.
+PictVal -> PictByRembrand.
+PictFake -> PoliceInvestigation.
 end_of_list.
 
 formulas(goals).
-DoorOpen.
+PictByRembrand | PoliceInvestigation.
 end_of_list.
 
 ============================== end of input ==========================
@@ -48,9 +47,9 @@ end_of_list.
 ============================== PROCESS NON-CLAUSAL FORMULAS ==========
 
 % Formulas that are not ordinary clauses:
-1 DiamondStolen -> ThiefInHouse # label(non_clause).  [assumption].
-2 ThiefInHouse -> DoorOpen | WindowSmashed # label(non_clause).  [assumption].
-3 DoorOpen # label(non_clause) # label(goal).  [goal].
+1 PictVal -> PictByRembrand # label(non_clause).  [assumption].
+2 PictFake -> PoliceInvestigation # label(non_clause).  [assumption].
+3 PictByRembrand | PoliceInvestigation # label(non_clause) # label(goal).  [goal].
 
 ============================== end of process non-clausal formulas ===
 
@@ -62,26 +61,26 @@ formulas(usable).
 end_of_list.
 
 formulas(sos).
-DiamondStolen.  [assumption].
--DiamondStolen | ThiefInHouse.  [clausify(1)].
--ThiefInHouse | DoorOpen | WindowSmashed.  [clausify(2)].
--WindowSmashed.  [assumption].
--DoorOpen.  [deny(3)].
+PictVal | PictFake.  [assumption].
+-PictVal | PictByRembrand.  [clausify(1)].
+-PictFake | PoliceInvestigation.  [clausify(2)].
+-PictByRembrand.  [deny(3)].
+-PoliceInvestigation.  [deny(3)].
 end_of_list.
 
 formulas(demodulators).
 end_of_list.
 
 Term ordering decisions:
-Predicate symbol precedence:  predicate_order([ DiamondStolen, ThiefInHouse, DoorOpen, WindowSmashed ]).
+Predicate symbol precedence:  predicate_order([ PictFake, PictVal, PictByRembrand, PoliceInvestigation ]).
 Function symbol precedence:  function_order([ ]).
 After inverse_order:  (no changes).
 
-kept:      4 DiamondStolen.  [assumption].
-kept:      5 -DiamondStolen | ThiefInHouse.  [clausify(1)].
-kept:      6 -ThiefInHouse | DoorOpen | WindowSmashed.  [clausify(2)].
-kept:      7 -WindowSmashed.  [assumption].
-kept:      8 -DoorOpen.  [deny(3)].
+kept:      4 PictVal | PictFake.  [assumption].
+kept:      5 -PictVal | PictByRembrand.  [clausify(1)].
+kept:      6 -PictFake | PoliceInvestigation.  [clausify(2)].
+kept:      7 -PictByRembrand.  [deny(3)].
+kept:      8 -PoliceInvestigation.  [deny(3)].
 
 ============================== end of process initial clauses ========
 
@@ -93,11 +92,11 @@ formulas(usable).
 end_of_list.
 
 formulas(sos).
-4 DiamondStolen.  [assumption].
-5 -DiamondStolen | ThiefInHouse.  [clausify(1)].
-6 -ThiefInHouse | DoorOpen | WindowSmashed.  [clausify(2)].
-7 -WindowSmashed.  [assumption].
-8 -DoorOpen.  [deny(3)].
+4 PictVal | PictFake.  [assumption].
+5 -PictVal | PictByRembrand.  [clausify(1)].
+6 -PictFake | PoliceInvestigation.  [clausify(2)].
+7 -PictByRembrand.  [deny(3)].
+8 -PoliceInvestigation.  [deny(3)].
 end_of_list.
 
 formulas(demodulators).
@@ -109,39 +108,39 @@ end_of_list.
 
 % Starting search at 0.00 seconds.
 
-given #1 (I,wt=1): 4 DiamondStolen.  [assumption].
+given #1 (I,wt=2): 4 PictVal | PictFake.  [assumption].
 
-given #2 (I,wt=2): 5 -DiamondStolen | ThiefInHouse.  [clausify(1)].
+given #2 (I,wt=2): 5 -PictVal | PictByRembrand.  [clausify(1)].
 
-given #3 (I,wt=3): 6 -ThiefInHouse | DoorOpen | WindowSmashed.  [clausify(2)].
+given #3 (I,wt=2): 6 -PictFake | PoliceInvestigation.  [clausify(2)].
 
-given #4 (I,wt=1): 7 -WindowSmashed.  [assumption].
+given #4 (I,wt=1): 7 -PictByRembrand.  [deny(3)].
 
-given #5 (I,wt=1): 8 -DoorOpen.  [deny(3)].
+given #5 (I,wt=1): 8 -PoliceInvestigation.  [deny(3)].
 
-given #6 (A,wt=1): 9 ThiefInHouse.  [resolve(5,a,4,a)].
+given #6 (A,wt=2): 9 PictByRembrand | PictFake.  [resolve(5,a,4,a)].
 
-given #7 (T,wt=2): 10 DoorOpen | WindowSmashed.  [resolve(9,a,6,a)].
+given #7 (T,wt=1): 10 PictFake.  [resolve(9,a,7,a)].
 
 ============================== PROOF =================================
 
 % Proof 1 at 0.00 (+ 0.00) seconds.
 % Length of proof is 12.
 % Level of proof is 5.
-% Maximum clause weight is 3.000.
+% Maximum clause weight is 2.000.
 % Given clauses 7.
 
-1 DiamondStolen -> ThiefInHouse # label(non_clause).  [assumption].
-2 ThiefInHouse -> DoorOpen | WindowSmashed # label(non_clause).  [assumption].
-3 DoorOpen # label(non_clause) # label(goal).  [goal].
-4 DiamondStolen.  [assumption].
-5 -DiamondStolen | ThiefInHouse.  [clausify(1)].
-6 -ThiefInHouse | DoorOpen | WindowSmashed.  [clausify(2)].
-7 -WindowSmashed.  [assumption].
-8 -DoorOpen.  [deny(3)].
-9 ThiefInHouse.  [resolve(5,a,4,a)].
-10 DoorOpen | WindowSmashed.  [resolve(9,a,6,a)].
-11 DoorOpen.  [resolve(10,b,7,a)].
+1 PictVal -> PictByRembrand # label(non_clause).  [assumption].
+2 PictFake -> PoliceInvestigation # label(non_clause).  [assumption].
+3 PictByRembrand | PoliceInvestigation # label(non_clause) # label(goal).  [goal].
+4 PictVal | PictFake.  [assumption].
+5 -PictVal | PictByRembrand.  [clausify(1)].
+6 -PictFake | PoliceInvestigation.  [clausify(2)].
+7 -PictByRembrand.  [deny(3)].
+8 -PoliceInvestigation.  [deny(3)].
+9 PictByRembrand | PictFake.  [resolve(5,a,4,a)].
+10 PictFake.  [resolve(9,a,7,a)].
+11 PoliceInvestigation.  [resolve(10,a,6,a)].
 12 $F.  [resolve(11,a,8,a)].
 
 ============================== end of proof ==========================
@@ -156,7 +155,7 @@ Sos_limit_deleted=0. Sos_displaced=0. Sos_removed=0.
 New_demodulators=0 (0 lex), Back_demodulated=0. Back_unit_deleted=0.
 Demod_attempts=0. Demod_rewrites=0.
 Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
-Nonunit_fsub_feature_tests=0. Nonunit_bsub_feature_tests=5.
+Nonunit_fsub_feature_tests=0. Nonunit_bsub_feature_tests=6.
 Megabytes=0.03.
 User_CPU=0.00, System_CPU=0.00, Wall_clock=0.
 
@@ -168,4 +167,4 @@ THEOREM PROVED
 
 Exiting with 1 proof.
 
-Process 5649 exit (max_proofs) Tue Nov 17 11:00:49 2026
+Process 10239 exit (max_proofs) Tue Nov 17 11:09:43 2026

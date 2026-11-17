@@ -1,0 +1,28 @@
+#Use Prover9 to show that the goal follows from the assumptions in the problem example:
+
+#A1	Either the picture is valuable or it is a fake.
+#A2	If it is valuable it is by Rembrandt.
+#A3	If it is a fake there will be a police investigation.
+#Goal	Either the picture is by Rembrandt or there will be a police investigation.
+#For this example you can choose your own propositional constants for the encoding.
+
+import pyprover9
+Assumptions= """
+
+    PictVal | PictFake.
+
+    PictVal -> PictByRembrand.
+
+    PictFake -> PoliceInvestigation.
+
+"""
+
+Goals="""
+
+    PictByRembrand | PoliceInvestigation.
+    """
+
+
+
+
+pyprover9.prove( Assumptions, Goals )
