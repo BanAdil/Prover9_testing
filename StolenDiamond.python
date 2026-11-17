@@ -1,0 +1,23 @@
+# ENCODING
+# Run this cell to set values for ASSUMPTIONS and GOAL
+
+import pyprover9
+ASSUMPTIONS = """
+% A1	The diamond has been stolen!
+DiamondStolen.
+
+% A2	If the diamond has been stolen, a thief got into the house.
+DiamondStolen -> ThiefInHouse.
+
+% A3	If a thief got in, either the door was open or the window was smashed.
+(ThiefInHouse -> (DoorOpen | WindowSmashed)).
+
+% A4	The window is not smashed.
+-WindowSmashed.
+"""
+
+GOAL = """
+% Goal	The door was open.
+DoorOpen.
+"""
+pyprover9.prove( ASSUMPTIONS, GOAL )

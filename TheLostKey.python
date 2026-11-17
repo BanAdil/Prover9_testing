@@ -1,0 +1,21 @@
+## In this code replace "FORMULA" and "GOAL_FORMULA" by
+## appropriate assumption and goal formulae in Prover9 syntax.
+
+import pyprover9
+ASSUMPTIONS = """
+% A1
+FORMULA.
+-AlanLockedDoor -> (AlanForgotKey | AlanLostKey).
+% A2
+FORMULA.
+AlanLostKey -> AlanInTrouble.
+% A3
+FORMULA.
+AlanGoodMemory -> -AlanForgotKey.
+% A4
+FORMULA.
+AlanGoodMemory.
+"""
+
+GOAL = "AlanLockedDoor | AlanInTrouble."
+pyprover9.prove( ASSUMPTIONS, GOAL )
