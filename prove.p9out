@@ -1,7 +1,7 @@
 ============================== Prover9 ===============================
 Prover9 (64) version 2009-11A, November 2009.
-Process 10239 was started by codespace on codespaces-fd6d1b,
-Tue Nov 17 11:09:43 2026
+Process 14909 was started by codespace on codespaces-fd6d1b,
+Tue Nov 17 11:19:28 2026
 The command was "/usr/local/python/3.14.2/lib/python3.14/site-packages/pyprover9/executables/prover9-linux-elf-64 -t 10".
 ============================== end of head ===========================
 
@@ -29,13 +29,15 @@ if(Mace4).
 end_if.
 
 formulas(assumptions).
-PictVal | PictFake.
-PictVal -> PictByRembrand.
-PictFake -> PoliceInvestigation.
+SunHoliday.
+SunHoliday -> UniClosed.
+ItsWeekend -> Sat | Sun.
+ItsWeekend.
+-Sat.
 end_of_list.
 
 formulas(goals).
-PictByRembrand | PoliceInvestigation.
+UniClosed.
 end_of_list.
 
 ============================== end of input ==========================
@@ -47,9 +49,9 @@ end_of_list.
 ============================== PROCESS NON-CLAUSAL FORMULAS ==========
 
 % Formulas that are not ordinary clauses:
-1 PictVal -> PictByRembrand # label(non_clause).  [assumption].
-2 PictFake -> PoliceInvestigation # label(non_clause).  [assumption].
-3 PictByRembrand | PoliceInvestigation # label(non_clause) # label(goal).  [goal].
+1 SunHoliday -> UniClosed # label(non_clause).  [assumption].
+2 ItsWeekend -> Sat | Sun # label(non_clause).  [assumption].
+3 UniClosed # label(non_clause) # label(goal).  [goal].
 
 ============================== end of process non-clausal formulas ===
 
@@ -61,26 +63,28 @@ formulas(usable).
 end_of_list.
 
 formulas(sos).
-PictVal | PictFake.  [assumption].
--PictVal | PictByRembrand.  [clausify(1)].
--PictFake | PoliceInvestigation.  [clausify(2)].
--PictByRembrand.  [deny(3)].
--PoliceInvestigation.  [deny(3)].
+SunHoliday.  [assumption].
+-SunHoliday | UniClosed.  [clausify(1)].
+-ItsWeekend | Sat | Sun.  [clausify(2)].
+ItsWeekend.  [assumption].
+-Sat.  [assumption].
+-UniClosed.  [deny(3)].
 end_of_list.
 
 formulas(demodulators).
 end_of_list.
 
 Term ordering decisions:
-Predicate symbol precedence:  predicate_order([ PictFake, PictVal, PictByRembrand, PoliceInvestigation ]).
+Predicate symbol precedence:  predicate_order([ ItsWeekend, SunHoliday, Sat, Sun, UniClosed ]).
 Function symbol precedence:  function_order([ ]).
 After inverse_order:  (no changes).
 
-kept:      4 PictVal | PictFake.  [assumption].
-kept:      5 -PictVal | PictByRembrand.  [clausify(1)].
-kept:      6 -PictFake | PoliceInvestigation.  [clausify(2)].
-kept:      7 -PictByRembrand.  [deny(3)].
-kept:      8 -PoliceInvestigation.  [deny(3)].
+kept:      4 SunHoliday.  [assumption].
+kept:      5 -SunHoliday | UniClosed.  [clausify(1)].
+kept:      6 -ItsWeekend | Sat | Sun.  [clausify(2)].
+kept:      7 ItsWeekend.  [assumption].
+kept:      8 -Sat.  [assumption].
+kept:      9 -UniClosed.  [deny(3)].
 
 ============================== end of process initial clauses ========
 
@@ -92,11 +96,12 @@ formulas(usable).
 end_of_list.
 
 formulas(sos).
-4 PictVal | PictFake.  [assumption].
-5 -PictVal | PictByRembrand.  [clausify(1)].
-6 -PictFake | PoliceInvestigation.  [clausify(2)].
-7 -PictByRembrand.  [deny(3)].
-8 -PoliceInvestigation.  [deny(3)].
+4 SunHoliday.  [assumption].
+5 -SunHoliday | UniClosed.  [clausify(1)].
+6 -ItsWeekend | Sat | Sun.  [clausify(2)].
+7 ItsWeekend.  [assumption].
+8 -Sat.  [assumption].
+9 -UniClosed.  [deny(3)].
 end_of_list.
 
 formulas(demodulators).
@@ -108,54 +113,39 @@ end_of_list.
 
 % Starting search at 0.00 seconds.
 
-given #1 (I,wt=2): 4 PictVal | PictFake.  [assumption].
+given #1 (I,wt=1): 4 SunHoliday.  [assumption].
 
-given #2 (I,wt=2): 5 -PictVal | PictByRembrand.  [clausify(1)].
-
-given #3 (I,wt=2): 6 -PictFake | PoliceInvestigation.  [clausify(2)].
-
-given #4 (I,wt=1): 7 -PictByRembrand.  [deny(3)].
-
-given #5 (I,wt=1): 8 -PoliceInvestigation.  [deny(3)].
-
-given #6 (A,wt=2): 9 PictByRembrand | PictFake.  [resolve(5,a,4,a)].
-
-given #7 (T,wt=1): 10 PictFake.  [resolve(9,a,7,a)].
+given #2 (I,wt=2): 5 -SunHoliday | UniClosed.  [clausify(1)].
 
 ============================== PROOF =================================
 
 % Proof 1 at 0.00 (+ 0.00) seconds.
-% Length of proof is 12.
-% Level of proof is 5.
+% Length of proof is 7.
+% Level of proof is 3.
 % Maximum clause weight is 2.000.
-% Given clauses 7.
+% Given clauses 2.
 
-1 PictVal -> PictByRembrand # label(non_clause).  [assumption].
-2 PictFake -> PoliceInvestigation # label(non_clause).  [assumption].
-3 PictByRembrand | PoliceInvestigation # label(non_clause) # label(goal).  [goal].
-4 PictVal | PictFake.  [assumption].
-5 -PictVal | PictByRembrand.  [clausify(1)].
-6 -PictFake | PoliceInvestigation.  [clausify(2)].
-7 -PictByRembrand.  [deny(3)].
-8 -PoliceInvestigation.  [deny(3)].
-9 PictByRembrand | PictFake.  [resolve(5,a,4,a)].
-10 PictFake.  [resolve(9,a,7,a)].
-11 PoliceInvestigation.  [resolve(10,a,6,a)].
-12 $F.  [resolve(11,a,8,a)].
+1 SunHoliday -> UniClosed # label(non_clause).  [assumption].
+3 UniClosed # label(non_clause) # label(goal).  [goal].
+4 SunHoliday.  [assumption].
+5 -SunHoliday | UniClosed.  [clausify(1)].
+9 -UniClosed.  [deny(3)].
+10 UniClosed.  [resolve(5,a,4,a)].
+11 $F.  [resolve(10,a,9,a)].
 
 ============================== end of proof ==========================
 
 ============================== STATISTICS ============================
 
-Given=7. Generated=8. Kept=8. proofs=1.
-Usable=5. Sos=0. Demods=0. Limbo=0, Disabled=7. Hints=0.
+Given=2. Generated=7. Kept=7. proofs=1.
+Usable=2. Sos=4. Demods=0. Limbo=0, Disabled=6. Hints=0.
 Kept_by_rule=0, Deleted_by_rule=0.
-Forward_subsumed=0. Back_subsumed=2.
+Forward_subsumed=0. Back_subsumed=0.
 Sos_limit_deleted=0. Sos_displaced=0. Sos_removed=0.
 New_demodulators=0 (0 lex), Back_demodulated=0. Back_unit_deleted=0.
 Demod_attempts=0. Demod_rewrites=0.
 Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
-Nonunit_fsub_feature_tests=0. Nonunit_bsub_feature_tests=6.
+Nonunit_fsub_feature_tests=0. Nonunit_bsub_feature_tests=2.
 Megabytes=0.03.
 User_CPU=0.00, System_CPU=0.00, Wall_clock=0.
 
@@ -167,4 +157,4 @@ THEOREM PROVED
 
 Exiting with 1 proof.
 
-Process 10239 exit (max_proofs) Tue Nov 17 11:09:43 2026
+Process 14909 exit (max_proofs) Tue Nov 17 11:19:28 2026

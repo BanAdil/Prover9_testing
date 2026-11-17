@@ -32,11 +32,15 @@ formulas(assumptions).
 
 
 
-    PictVal | PictFake.
+    SunHoliday.
 
-    PictVal -> PictByRembrand.
+    SunHoliday -> UniClosed.
 
-    PictFake -> PoliceInvestigation.
+    ItsWeekend -> (Sat | Sun).
+
+    ItsWeekend.
+
+    -Sat.
 
 end_of_list.
 
@@ -44,6 +48,6 @@ formulas(goals).
 
 
 
-    PictByRembrand | PoliceInvestigation.
+    UniClosed.
 
 end_of_list.

@@ -1,0 +1,42 @@
+#Use Prover9 to show that the goal follows from the assumptions in the problem example:
+
+#This one is a bit tricker. Think carefully about your encodings for A2 and A3.
+
+#A1	Sunday is a Holiday.
+#A2	On holidays the University is closed.
+#A3	Saturday and Sunday is the weekend.
+#A4	It is the weekend.
+#A5	It is not Saturday.
+#Goal	The University is closed. for the encoding.
+
+ 
+import pyprover9
+
+Assumptions = """
+
+    SunHoliday.
+
+    SunHoliday -> UniClosed.
+
+    ItsWeekend -> (Sat | Sun).
+
+    ItsWeekend.
+
+    -Sat.
+
+"""
+Goals = """
+
+    UniClosed.
+
+"""
+pyprover9.prove(Assumptions, Goals)
+
+
+
+
+
+
+
+
+pyprover9.prove( Assumptions, Goals )
